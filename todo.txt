@@ -1,0 +1,10 @@
+[X] Simplify polygon drawing
+    [X] func
+    [X] textures
+    [X] rotations
+[] Turn into function
+[] Dungeon drawing
+[] Dungeon generation
+[] Player
+[] Entities
+[] Server???

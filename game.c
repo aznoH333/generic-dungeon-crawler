@@ -20,7 +20,7 @@
 *   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
 *
 ********************************************************************************************/
-#include "gframework.c"
+#include "gframework3d.c"
 #include "raylib.h"
 
 //------------------------------------------------------------------------------------
@@ -29,7 +29,18 @@
 int main(void)
 {
     initFramework();
+    Texture2D debug1 = LoadTexture("resources/debug_0002.png");
+    // generate mesh
+    Mesh plane = GenMeshPlane(1, 1, 1, 1);
+    // convert to model
+    Model m = LoadModelFromMesh(plane);
+    // set texture
+    m.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = debug1;
 
+    // position
+    Vector3 position = { 0.0f, 0.0f, 0.0f };
+    Vector3 rotation = { 1.0f, 0.0f, 0.0f };
+    Vector3 scale = {1.0f, 1.0f, 1.0f} ;
     // Main game loop
     while (!WindowShouldClose())
     {
@@ -37,21 +48,26 @@ int main(void)
         fDrawBegin();
 
             ClearBackground(RAYWHITE);
+            DrawGrid(10, 1.0);
 
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-            draw(0,0,0);
-            draw(1,32,0);
-            draw(2,64,0);
-            draw(3,96,0);
-            draw(4,128,0);
-            
+            //DrawModel(m, position, 1.0f, WHITE);
+            //DrawModelEx(m, position, rotation, 90, scale, WHITE);
+
+            drawTexturedPlane(TEXTURE_FLOOR, (Vector3){0,0,0}, ROTATION_FLOOR);
+            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0f,0.5f,-0.5f}, ROTATION_WEST);
+            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.5f,0.5f,0.0f}, ROTATION_SOUTH);
+            drawTexturedPlane(TEXTURE_CEILING, (Vector3){0.0,1.0f,0}, ROTATION_CEILING);
+
 
         fDrawEnd();
         
     }
 
 	disposeFramework();
-    
+    // unload all
+    UnloadTexture(debug1);
+    UnloadMesh(plane);
+    UnloadModel(m);
 
     return 0;
 }
