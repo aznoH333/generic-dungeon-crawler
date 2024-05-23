@@ -54,9 +54,12 @@ int main(void)
             //DrawModelEx(m, position, rotation, 90, scale, WHITE);
 
             drawTexturedPlane(TEXTURE_FLOOR, (Vector3){0,0,0}, ROTATION_FLOOR);
-            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0f,0.5f,-0.5f}, ROTATION_WEST);
-            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.5f,0.5f,0.0f}, ROTATION_SOUTH);
-            drawTexturedPlane(TEXTURE_CEILING, (Vector3){0.0,1.0f,0}, ROTATION_CEILING);
+            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0f,0.0f,0.0f}, ROTATION_WEST);
+            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0f,0.0f,0.0f}, ROTATION_SOUTH);
+            drawTexturedPlane(TEXTURE_CEILING, (Vector3){0.0,0.0f,0}, ROTATION_CEILING);
+            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0,0.0f,0}, ROTATION_EAST);
+            drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0,0.0f,0}, ROTATION_NORTH);
+
 
 
         fDrawEnd();

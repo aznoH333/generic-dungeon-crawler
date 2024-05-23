@@ -53,6 +53,12 @@ float sign(float input){
 	return -1;
 }
 
+void printMatrix(Matrix* matrix){
+
+		printf("{%f, %f, %f, %f} \n {%f, %f, %f, %f} \n {%f, %f, %f, %f} \n {%f, %f, %f, %f} \n", matrix->m0, matrix->m1, matrix->m2, matrix->m3, matrix->m4, matrix->m5, matrix->m6, matrix->m7, matrix->m8, matrix->m9, matrix->m10, matrix->m11, matrix->m12, matrix->m13, matrix->m14, matrix->m15);
+
+}
+
 //------------------------------------------------------
 // sprites
 //------------------------------------------------------
@@ -159,26 +165,57 @@ Texture2D* getTexture(int textureId){
 //------------------------------------------------------
 // rotation lookup
 //------------------------------------------------------
-struct PlaneRotation{
-	Vector3 axis;
-	float angle;
-};
-typedef struct PlaneRotation PlaneRotation;
 
-#define ROTATION_COUNT 4
-PlaneRotation* rotationLookup;
+
+#define ROTATION_COUNT 6
+Matrix* rotationLookup;
 
 #define ROTATION_FLOOR 0
 #define ROTATION_CEILING 1
 #define ROTATION_WEST 2
 #define ROTATION_SOUTH 3
+#define ROTATION_EAST 4
+#define ROTATION_NORTH 5
 
 void initRotations(){
-	rotationLookup = malloc(sizeof(PlaneRotation) * ROTATION_COUNT);
-	rotationLookup[ROTATION_FLOOR] = (PlaneRotation){(Vector3){0.0f, 0.0f, 0.0f}, 0.0f};
-	rotationLookup[ROTATION_CEILING] = (PlaneRotation){(Vector3){1, 0, 0}, 180};
-	rotationLookup[ROTATION_WEST] = (PlaneRotation){(Vector3){1, 0, 0}, 90};
-	rotationLookup[ROTATION_SOUTH] = (PlaneRotation){(Vector3){0, 0, 1}, 90};
+	rotationLookup = malloc(sizeof(Matrix) * ROTATION_COUNT);
+	rotationLookup[ROTATION_FLOOR] = (Matrix)	{
+												1.0f, 0.0f, 0.0f, 0.0f,
+												0.0f, 1.0f, 0.0f, 0.0f,
+												0.0f, 0.0f, 1.0f, 0.0f,
+												0.0f, 0.0f, 0.0f, 1.0f
+												};
+
+	rotationLookup[ROTATION_CEILING] = (Matrix)	{
+												1.0f, 0.0f, 0.0f, 0.0f,
+												0.0f, -1.0f, 0.0f, 1.0f,
+												0.0f, 0.0f, -1.0f, 0.0f,
+												0.0f, 0.0f, 0.0f, 1.0f
+												};
+	rotationLookup[ROTATION_WEST] = (Matrix)	{
+												0.0f, 0.0f, 0.0f, 0.5f,
+												0.0f, 0.0f, -1.0f, 0.5f,
+												1.0f, 0.0f, 0.0f, 0.0f,
+												0.0f, 0.0f, 0.0f, 1.0f
+												};
+	rotationLookup[ROTATION_SOUTH] = (Matrix)	{
+												1.0f, 0.0f, 0.0f, 0.0f,
+												0.0f, 0.0f, -1.0f, 0.5f,
+												0.0f, -1.0f, 0.0f, -0.5f,
+												0.0f, 0.0f, 0.0f, 1.0f
+												};
+	rotationLookup[ROTATION_EAST] = (Matrix)	{
+												-1.0f, 0.0f, 0.0f, 0.0f,
+												0.0f, 0.0f, -1.0f, 0.5f,
+												0.0f, -1.0f, 0.0f, 0.5f,
+												0.0f, 0.0f, 0.0f, 1.0f
+												};
+	rotationLookup[ROTATION_NORTH] = (Matrix)	{
+												0.0f, 1.0f, 0.0f, -0.5f,
+												0.0f, 0.0f, -1.0f, 0.5f,
+												-1.0f, 0.0f, 0.0f, 0.0f,
+												0.0f, 0.0f, 0.0f, 1.0f
+												};
 
 
 }
@@ -210,11 +247,10 @@ void disposePolygons(){
 void drawTexturedPlane(int texture, Vector3 position, int rotation){
 	// set texture
     planeModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *getTexture(texture);
-	for (int i = 0; i < 2; i++){
-		printf("test\n");
-		printf("{%f, %f, %f}\n", rotationLookup[rotation].axis.x, rotationLookup[rotation].axis.y, rotationLookup[rotation].axis.z);
-	}
-	DrawModelEx(planeModel, position, rotationLookup[rotation].axis, rotationLookup[rotation].angle, DEFAULT_SCALE, WHITE);
+
+	//printMatrix(&planeModel.transform);
+	planeModel.transform = rotationLookup[rotation];
+	DrawModel(planeModel, position, 1.0f, WHITE);
 }
 
 //------------------------------------------------------
