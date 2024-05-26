@@ -2,8 +2,8 @@
     [X] func
     [X] textures
     [X] rotations
-[] Turn into function
-[] Dungeon drawing
+[X] Turn into function
+[X] Dungeon drawing
 [] Dungeon generation
 [] Player
 [] Entities

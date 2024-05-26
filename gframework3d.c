@@ -192,13 +192,13 @@ void initRotations(){
 												0.0f, 0.0f, -1.0f, 0.0f,
 												0.0f, 0.0f, 0.0f, 1.0f
 												};
-	rotationLookup[ROTATION_WEST] = (Matrix)	{
+	rotationLookup[ROTATION_NORTH] = (Matrix)	{
 												0.0f, 0.0f, 0.0f, 0.5f,
 												0.0f, 0.0f, -1.0f, 0.5f,
 												1.0f, 0.0f, 0.0f, 0.0f,
 												0.0f, 0.0f, 0.0f, 1.0f
 												};
-	rotationLookup[ROTATION_SOUTH] = (Matrix)	{
+	rotationLookup[ROTATION_WEST] = (Matrix)	{
 												1.0f, 0.0f, 0.0f, 0.0f,
 												0.0f, 0.0f, -1.0f, 0.5f,
 												0.0f, -1.0f, 0.0f, -0.5f,
@@ -210,7 +210,7 @@ void initRotations(){
 												0.0f, -1.0f, 0.0f, 0.5f,
 												0.0f, 0.0f, 0.0f, 1.0f
 												};
-	rotationLookup[ROTATION_NORTH] = (Matrix)	{
+	rotationLookup[ROTATION_SOUTH] = (Matrix)	{
 												0.0f, 1.0f, 0.0f, -0.5f,
 												0.0f, 0.0f, -1.0f, 0.5f,
 												-1.0f, 0.0f, 0.0f, 0.0f,

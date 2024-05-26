@@ -22,6 +22,7 @@
 ********************************************************************************************/
 #include "gframework3d.c"
 #include "raylib.h"
+#include "world.c"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -41,6 +42,11 @@ int main(void)
     Vector3 position = { 0.0f, 0.0f, 0.0f };
     Vector3 rotation = { 1.0f, 0.0f, 0.0f };
     Vector3 scale = {1.0f, 1.0f, 1.0f} ;
+
+
+    // world stuff
+    worldInit();
+
     // Main game loop
     while (!WindowShouldClose())
     {
@@ -52,13 +58,17 @@ int main(void)
 
             //DrawModel(m, position, 1.0f, WHITE);
             //DrawModelEx(m, position, rotation, 90, scale, WHITE);
+            worldUpdate();
 
+
+            /*
             drawTexturedPlane(TEXTURE_FLOOR, (Vector3){0,0,0}, ROTATION_FLOOR);
             drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0f,0.0f,0.0f}, ROTATION_WEST);
             drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0f,0.0f,0.0f}, ROTATION_SOUTH);
             drawTexturedPlane(TEXTURE_CEILING, (Vector3){0.0,0.0f,0}, ROTATION_CEILING);
             drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0,0.0f,0}, ROTATION_EAST);
             drawTexturedPlane(TEXTURE_WALL, (Vector3){0.0,0.0f,0}, ROTATION_NORTH);
+            */
 
 
 
@@ -71,6 +81,7 @@ int main(void)
     UnloadTexture(debug1);
     UnloadMesh(plane);
     UnloadModel(m);
+    worldDispose();
 
     return 0;
 }
